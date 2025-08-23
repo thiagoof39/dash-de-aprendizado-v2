@@ -149,6 +149,7 @@
                     <h3 class="text-xl font-bold text-gray-700 mb-4">Diário de Aprendizagem</h3>
                     <textarea id="learning-journal" class="w-full h-32 p-2 border border-gray-300 rounded-md focus:ring-[#A88B79] focus:border-[#A88B79]" placeholder="Reflita sobre o que aprendeu hoje..."></textarea>
                     <button id="save-journal" class="mt-2 w-full bg-[#A88B79] text-white py-2 rounded-lg hover:bg-[#937562] transition">Salvar Anotação</button>
+                    <p class="text-xs text-gray-500 mt-2">Suas anotações são salvas no seu navegador.</p>
                 </div>
             </div>
         </section>
@@ -235,7 +236,7 @@
             checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateProgress));
             loadProgress();
             
-            const apiKey = "AIzaSyDlRVsouUzWXXPv9v2MMSeALscyJA1OELs"; const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const apiKey = ""; const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
             async function callGeminiAPI(prompt, elementForLoader, elementForOutput) { if(elementForLoader) elementForLoader.style.display = 'flex'; if(elementForOutput) elementForOutput.innerHTML = ''; let chatHistory = [{ role: "user", parts: [{ text: prompt }] }]; const payload = { contents: chatHistory }; try { const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); const result = await response.json(); if (result.candidates && result.candidates[0].content.parts[0].text) { const responseText = result.candidates[0].content.parts[0].text; if(elementForOutput) elementForOutput.innerHTML = formatApiResponse(responseText); return responseText; } else { throw new Error("Resposta da API inválida."); } } catch (error) { console.error("Erro na API Gemini:", error); const errorMsg = "Desculpe, ocorreu um erro. Por favor, tente novamente."; if(elementForOutput) elementForOutput.innerHTML = errorMsg; return errorMsg; } finally { if(elementForLoader) elementForLoader.style.display = 'none'; if(elementForOutput) elementForOutput.classList.remove('hidden'); } }
             function formatApiResponse(text) { return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/^- (.*$)/gm, '<li class="ml-4">$1</li>').replace(/(<li.*>.*<\/li>)+/g, '<ul>$&</ul>').replace(/\n/g, '<br>'); }
             
@@ -261,6 +262,15 @@
                 timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
 
+            function resetPomodoro() {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timeLeft = 25 * 60;
+                updateTimerDisplay();
+                startButton.textContent = 'Iniciar';
+                messageDisplay.textContent = '';
+            }
+
             startButton.addEventListener('click', () => {
                 if (timerInterval) {
                     clearInterval(timerInterval);
@@ -272,46 +282,42 @@
                         timeLeft--;
                         updateTimerDisplay();
                         if (timeLeft <= 0) {
-                            clearInterval(timerInterval);
-                            timerInterval = null;
-                            timeLeft = 25 * 60;
-                            updateTimerDisplay();
-                            startButton.textContent = 'Iniciar';
                             messageDisplay.textContent = 'Sessão concluída! Faça uma pausa.';
+                            resetPomodoro();
                             setTimeout(() => { messageDisplay.textContent = ''; }, 5000);
                         }
                     }, 1000);
                 }
             });
 
-            document.getElementById('pomodoro-reset').addEventListener('click', () => {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                timeLeft = 25 * 60;
-                updateTimerDisplay();
-                startButton.textContent = 'Iniciar';
-                messageDisplay.textContent = '';
-            });
+            document.getElementById('pomodoro-reset').addEventListener('click', resetPomodoro);
             
             // Focus Music Tool
-            const synth = new Tone.Synth().toDestination();
-            const pattern = new Tone.Pattern((time, note) => {
-                synth.triggerAttackRelease(note, "8n", time);
-            }, ["C4", "E4", "G4", "B4"], "upDown");
-            pattern.interval = "4n";
-            Tone.Transport.bpm.value = 60;
+            let synth, pattern;
             const musicToggle = document.getElementById('focus-music-toggle');
+            let isMusicInitialized = false;
+
+            async function initializeMusic() {
+                if (isMusicInitialized) return;
+                await Tone.start();
+                synth = new Tone.Synth().toDestination();
+                pattern = new Tone.Pattern((time, note) => {
+                    synth.triggerAttackRelease(note, "8n", time);
+                }, ["C4", "E4", "G4", "B4"], "upDown");
+                pattern.interval = "4n";
+                Tone.Transport.bpm.value = 60;
+                isMusicInitialized = true;
+            }
             
             musicToggle.addEventListener('click', async () => {
-                await Tone.start();
+                await initializeMusic();
                 if (Tone.Transport.state !== 'started') {
                     Tone.Transport.start();
                     pattern.start(0);
                     musicToggle.textContent = '❚❚';
                 } else {
                     Tone.Transport.stop();
-                    synth.releaseAll();
-                    Tone.Transport.cancel(0);
+                    pattern.stop();
                     musicToggle.textContent = '▶';
                 }
             });
