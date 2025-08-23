@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Interativo: Revolucionando o Aprendizado com IA</title>
+    <meta name="description" content="Dashboard interativo com IA para revolucionar o aprendizado. Explore métodos, planos personalizados e dicas de estudo baseados em ciência cognitiva e criatividade.">
+    <meta name="theme-color" content="#A88B79">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 400px;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .active .accordion-content {
+            max-height: 1500px;
+            transition: max-height 0.5s ease-in;
+        }
+        .active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        .step-circle {
+            transition: all 0.3s ease;
+        }
+        .step-circle.active {
+            background-color: #A88B79;
+            color: #FFFFFF;
+            transform: scale(1.1);
+        }
+        .gemini-loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #A88B79;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #gemini-modal {
+            transition: opacity 0.3s ease;
+        }
+        .focus-visible {
+            outline: 2px solid #A88B79 !important;
+            outline-offset: 2px;
+        }
+        a:focus, button:focus {
+            outline: 2px solid #A88B79;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-[#FDFBF8]/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Menu principal">
+            <h1 class="text-xl md:text-2xl font-bold text-[#A88B79]">Revolucionando o Aprendizado</h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#paradigma" class="text-gray-600 hover:text-[#A88B79] transition">Paradigma</a>
+                <a href="#cerebro" class="text-gray-600 hover:text-[#A88B79] transition">O Cérebro</a>
+                <a href="#metodo" class="text-gray-600 hover:text-[#A88B79] transition">O Método</a>
+                <a href="#plano-ia" class="text-gray-600 hover:text-[#A88B79] transition">Plano com IA</a>
+                <a href="#ciclo" class="text-gray-600 hover:text-[#A88B79] transition">O Ciclo</a>
+                <a href="#criatividade" class="text-gray-600 hover:text-[#A88B79] transition">Criatividade</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A88B79]" aria-label="Abrir menu mobile" tabindex="0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col space-y-2">
+            <a href="#paradigma" class="block text-gray-600 hover:text-[#A88B79] transition py-2">Paradigma</a>
+            <a href="#cerebro" class="block text-gray-600 hover:text-[#A88B79] transition py-2">O Cérebro</a>
+            <a href="#metodo" class="block text-gray-600 hover:text-[#A88B79] transition py-2">O Método</a>
+            <a href="#plano-ia" class="block text-gray-600 hover:text-[#A88B79] transition py-2">Plano com IA</a>
+            <a href="#ciclo" class="block text-gray-600 hover:text-[#A88B79] transition py-2">O Ciclo</a>
+            <a href="#criatividade" class="block text-gray-600 hover:text-[#A88B79] transition py-2">Criatividade</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- SECTIONS (TODO O CONTEÚDO PERMANECE IGUAL AO ORIGINAL, SÓ MELHORIAS DE ACESSIBILIDADE/SEO/UX NO HEAD, HEADER, FOOTER E SCRIPTS) -->
+        <!-- Você pode colar aqui todo o conteúdo das sections conforme enviado anteriormente, pois ele não sofreu alteração estrutural -->
+
+        <section id="paradigma" class="mb-24 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#A88B79] mb-4">Uma Nova Forma de Aprender</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12">O sistema educacional tradicional foi desenhado para uma era que não existe mais. Para prosperar na era da informação, precisamos de uma revolução na forma como aprendemos. Esta aplicação explora um novo paradigma, alinhado com o funcionamento do nosso cérebro, para tornar o aprendizado mais rápido, eficaz e prazeroso.</p>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md mx-auto max-w-4xl">
+                    <thead class="bg-[#F4E9E1]">
+                        <tr>
+                            <th class="py-3 px-4 text-left font-semibold text-[#A88B79]">Característica</th>
+                            <th class="py-3 px-4 text-left font-semibold text-gray-600">Abordagem Tradicional</th>
+                            <th class="py-3 px-4 text-left font-semibold text-[#A88B79]">Abordagem Revolucionária</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="py-3 px-4 font-semibold">Papel do Aluno</td>
+                            <td class="py-3 px-4">Receptor passivo de informação.</td>
+                            <td class="py-3 px-4">Arquiteto ativo do conhecimento.</td>
+                        </tr>
+                        <tr class="border-t bg-gray-50/50">
+                            <td class="py-3 px-4 font-semibold">Foco Principal</td>
+                            <td class="py-3 px-4">Memorização de fatos ("O quê").</td>
+                            <td class="py-3 px-4">Aprender a aprender e a pensar ("Como").</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-3 px-4 font-semibold">Ambiente</td>
+                            <td class="py-3 px-4">Rígido, silencioso, individual.</td>
+                            <td class="py-3 px-4">Flexível, multissensorial, colaborativo.</td>
+                        </tr>
+                        <tr class="border-t bg-gray-50/50">
+                            <td class="py-3 px-4 font-semibold">Estado Emocional</td>
+                            <td class="py-3 px-4">Irrelevante ou visto como obstáculo.</td>
+                            <td class="py-3 px-4">Fundamental: vigília relaxada e diversão.</td>
+                        </tr>
+                         <tr class="border-t">
+                            <td class="py-3 px-4 font-semibold">Resultado</td>
+                            <td class="py-3 px-4">Conformidade e conhecimento limitado.</td>
+                            <td class="py-3 px-4">Maestria, autonomia e criatividade.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="cerebro" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#A88B79] text-center mb-4">Conheça Seu Supercomputador</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 text-center mb-16">Para aprender de forma eficaz, você precisa do manual de instruções do seu cérebro. Explore os componentes chave que governam sua capacidade de aprender, memorizar e criar. Interaja com os diagramas abaixo para desvendar os segredos da sua mente.</p>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">Seus Três Cérebros em Um</h3>
+                    <p class="text-gray-600 mb-6">Seu cérebro evoluiu em camadas. O aprendizado de alto nível só acontece quando todas as três partes trabalham em harmonia. Clique em cada área para entender seu papel.</p>
+                    <div id="brain-info" class="bg-white p-6 rounded-lg shadow-inner border border-gray-200 min-h-[180px]">
+                        <h4 id="brain-title" class="text-xl font-bold text-[#A88B79] mb-2">Selecione uma área do cérebro</h4>
+                        <p id="brain-text" class="text-gray-600">O estado emocional é a porta de entrada para a aprendizagem. Um ambiente positivo e relaxado permite que a informação flua para as áreas de pensamento superior.</p>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center">
+                    <div class="relative w-64 h-64">
+                        <div id="neocortex" data-title="Neocórtex (Cérebro Pensante)" data-text="A camada mais externa, responsável pelo pensamento complexo, linguagem e criatividade. É aqui que a aprendizagem profunda ocorre, mas só é acessível quando os outros dois cérebros se sentem seguros e engajados." class="brain-part absolute top-0 left-0 w-full h-full rounded-full bg-[#A88B79]/30 cursor-pointer transition hover:bg-[#A88B79]/50"></div>
+                        <div id="limbico" data-title="Sistema Límbico (Cérebro Emocional)" data-text="O centro das emoções e o 'porteiro' da memória. Ele decide o que é importante o suficiente para ser lembrado. Informações com carga emocional (curiosidade, alegria) são priorizadas." class="brain-part absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-[#A88B79]/50 cursor-pointer transition hover:bg-[#A88B79]/70"></div>
+                        <div id="reptiliano" data-title="Cérebro Reptiliano (Instintivo)" data-text="A parte mais primitiva, focada na sobrevivência. Em um ambiente de estudo estressante, ele assume o controle e bloqueia o acesso às áreas de pensamento superior para economizar energia." class="brain-part absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-[#A88B79] cursor-pointer transition hover:bg-[#937562]"></div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-20 border-gray-200">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                 <div class="chart-container order-2 md:order-1">
+                    <canvas id="intelligencesChart"></canvas>
+                </div>
+                <div class="text-center md:text-left order-1 md:order-2">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">A Orquestra da Mente</h3>
+                    <p class="text-gray-600 mb-6">A inteligência não é uma coisa só. Temos múltiplas inteligências, e a aprendizagem se torna exponencialmente mais eficaz quando engajamos várias delas. Clique nos segmentos do gráfico para explorar cada uma.</p>
+                    <div id="intelligence-info" class="bg-white p-6 rounded-lg shadow-inner border border-gray-200 min-h-[200px]">
+                         <h4 id="intelligence-title" class="text-xl font-bold text-[#A88B79] mb-2">Selecione uma inteligência</h4>
+                        <p id="intelligence-text" class="text-gray-600">Utilize todo o seu potencial combinando lógica, criatividade, movimento e colaboração em seus estudos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="metodo" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#A88B79] text-center mb-4">O Método Mestre</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 text-center mb-12">Este é um roteiro de 20 passos, organizado em 4 fases, para aprender qualquer coisa de forma estruturada e profunda. Clique em cada fase para expandir e ver os passos detalhados.</p>
+            <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto"></div>
+        </section>
+        
+        <section id="plano-ia" class="mb-24 bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#A88B79] text-center mb-4">Seu Plano de Estudos Personalizado</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 text-center mb-12">Use o poder da IA para criar um roteiro de aprendizado sob medida. Informe o que você quer aprender, seu tempo disponível e seu estilo preferido, e deixe a mágica acontecer.</p>
+            <div class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">O que você quer aprender?</label>
+                    <input type="text" id="subject" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#A88B79] focus:border-[#A88B79]" placeholder="Ex: JavaScript, História do Brasil">
+                </div>
+                <div>
+                    <label for="timeframe" class="block text-sm font-medium text-gray-700 mb-1">Tempo disponível</label>
+                    <input type="text" id="timeframe" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#A88B79] focus:border-[#A88B79]" placeholder="Ex: 2 semanas, 3 meses">
+                </div>
+                <div class="md:col-span-2">
+                    <label for="style" class="block text-sm font-medium text-gray-700 mb-1">Estilo de aprendizado preferido</label>
+                    <select id="style" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#A88B79] focus:border-[#A88B79]">
+                        <option>Visual (diagramas, vídeos)</option>
+                        <option>Prático (projetos, exercícios)</option>
+                        <option>Leitura/Escrita (textos, resumos)</option>
+                        <option>Auditivo (discussões, podcasts)</option>
+                        <option>Equilibrado (uma mistura de tudo)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center mb-8">
+                <button id="generate-plan-btn" class="bg-[#A88B79] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#937562] transition shadow-md">
+                    ✨ Gerar Plano com IA
+                </button>
+            </div>
+            <div id="study-plan-container" class="mt-8">
+                <div id="plan-loader" class="hidden justify-center items-center">
+                    <div class="gemini-loader"></div>
+                </div>
+                <div id="plan-output" class="prose max-w-none text-gray-700"></div>
+            </div>
+        </section>
+
+        <section id="ciclo" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#A88B79] text-center mb-4">O Ciclo de Estudo Eficaz</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 text-center mb-16">Cada sessão de estudo pode ser uma vitória. Siga este ciclo de 6 etapas para garantir que você absorva, compreenda e retenha o conhecimento de forma ativa. Clique em cada passo do ciclo para ver os detalhes.</p>
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                <div class="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
+                    <div id="cycle-steps-container" class="relative w-full h-full"></div>
+                </div>
+                <div class="lg:w-1/3 bg-white p-8 rounded-lg shadow-inner border border-gray-200 min-h-[250px]">
+                    <h3 id="cycle-title" class="text-2xl font-bold text-[#A88B79] mb-3">O Ciclo da Aprendizagem Verdadeira</h3>
+                    <p id="cycle-text" class="text-gray-600">Transforme o estudo de uma maratona passiva em uma série de sprints curtos, ativos e eficazes. Selecione um passo para começar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="criatividade" class="mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#A88B79] text-center mb-4">Do Aprendizado à Criação</h2>
+             <p class="max-w-3xl mx-auto text-lg text-gray-600 text-center mb-12">A maestria não é apenas sobre absorver conhecimento, mas sobre usá-lo para criar algo novo. A criatividade é um processo que pode ser aprendido. Explore as fases abaixo.</p>
+             <div id="creative-accordion-container" class="space-y-4 max-w-4xl mx-auto"></div>
+        </section>
+    </main>
+    
+    <div id="gemini-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden opacity-0" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 id="modal-title" class="text-xl font-bold text-[#A88B79]">Explicação do Conceito</h3>
+                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800" aria-label="Fechar modal">&times;</button>
+            </div>
+            <div id="modal-body" class="p-6 overflow-y-auto">
+                <div id="modal-loader" class="flex justify-center items-center py-8">
+                    <div class="gemini-loader"></div>
+                </div>
+                <div id="modal-content" class="prose max-w-none text-gray-700 hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-[#F4E9E1] mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-[#A88B79]">
+            <p class="font-semibold">Você é o arquiteto do seu futuro.</p>
+            <p class="text-sm mt-2">Domine a arte de aprender e liberte seu potencial máximo.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape" && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+            const navLinks = document.querySelectorAll('#mobile-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+                link.setAttribute("tabindex", "0");
+            });
+
+            const brainParts = document.querySelectorAll('.brain-part');
+            const brainTitle = document.getElementById('brain-title');
+            const brainText = document.getElementById('brain-text');
+            brainParts.forEach(part => {
+                part.addEventListener('click', () => {
+                    brainTitle.textContent = part.dataset.title;
+                    brainText.textContent = part.dataset.text;
+                });
+                part.tabIndex = 0;
+                part.addEventListener('keydown', e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        part.click();
+                    }
+                });
+            });
+
+            const intelligenceData = {
+                labels: ['Linguística', 'Lógico-Matemática', 'Visual-Espacial', 'Musical', 'Cinestésica', 'Interpessoal', 'Intrapessoal'],
+                datasets: [{
+                    label: 'Múltiplas Inteligências',
+                    data: [1, 1, 1, 1, 1, 1, 1],
+                    backgroundColor: [
+                        'rgba(168, 139, 121, 0.7)', 'rgba(188, 159, 141, 0.7)', 'rgba(208, 179, 161, 0.7)',
+                        'rgba(228, 199, 181, 0.7)', 'rgba(244, 225, 213, 0.7)', 'rgba(214, 189, 171, 0.7)',
+                        'rgba(194, 169, 151, 0.7)'
+                    ],
+                    borderColor: '#FFFFFF', borderWidth: 2, hoverOffset: 10
+                }]
+            };
+
+            const intelligenceInfo = {
+                'Linguística': 'Use a palavra. Explique conceitos em voz alta, escreva resumos, conte histórias sobre o que aprendeu.',
+                'Lógico-Matemática': 'Encontre a estrutura. Crie fluxogramas, tabelas e identifique padrões e relações de causa e efeito.',
+                'Visual-Espacial': 'Veja para crer. Desenhe diagramas, use cores e, principalmente, crie Mapas Mentais para visualizar a informação.',
+                'Musical': 'Sinta o ritmo. Associe informações a melodias ou use música barroca para entrar em um estado de foco relaxado.',
+                'Cinestésica': 'Aprenda fazendo. Construa modelos, realize experimentos, ou simplesmente caminhe enquanto revisa o material.',
+                'Interpessoal': 'Aprenda em conjunto. Discuta ideias, debata pontos de vista e, o mais poderoso, ensine o que você aprendeu.',
+                'Intrapessoal': 'Conecte com você. Reflita sobre como o conhecimento se aplica aos seus objetivos, valores e experiências.'
+            };
+
+            const ctx = document.getElementById('intelligencesChart').getContext('2d');
+            const intelligencesChart = new Chart(ctx, {
+                type: 'doughnut', data: intelligenceData,
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } }, tooltip: { enabled: true } },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const label = intelligenceData.labels[index];
+                            document.getElementById('intelligence-title').textContent = label;
+                            document.getElementById('intelligence-text').textContent = intelligenceInfo[label];
+                        }
+                    }
+                }
+            });
+
+            const accordionData = [
+                { title: 'Fase 1: A Arquitetura do Sucesso (Preparação)', items: [ 'Ouse Sonhar', 'Estabeleça Metas Específicas', 'Arranje um Orientador', 'Comece com uma Visão Global', 'Busque o Princípio Fundamental' ] },
+                { title: 'Fase 2: A Arte da Absorção (Entrada)', items: [ 'Fontes de Qualidade', 'Reaprenda a Ler', 'Reforce com Imagens e Sons', 'Aprenda Fazendo', 'Desenhe Mapas Mentais' ] },
+                { title: 'Fase 3: A Ciência da Retenção (Consolidação)', items: [ 'Recuperação Ativa', 'Use Associações Mnemônicas', 'Aprenda em Vigília Relaxada', 'Pratique, Pratique, Pratique', 'Reveja e Reflita' ] },
+                { title: 'Fase 4: O Salto para a Maestria (Aplicação)', items: [ 'Divirta-se', 'Ensine os Outros', 'Metaprendizagem' ] }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionData.forEach((item) => {
+                const content = item.items.map(step => `
+                    <li class="flex justify-between items-center py-2">
+                        <span><strong>${step}:</strong></span>
+                        <button class="explain-concept-btn text-sm bg-[#F4E9E1] text-[#A88B79] px-3 py-1 rounded-full hover:bg-[#E9DACE] transition" data-concept="${step}" tabindex="0">✨ Explicar</button>
+                    </li>
+                `).join('');
+
+                const accordionItem = document.createElement('div');
+                accordionItem.classList.add('accordion-item', 'border', 'border-gray-200', 'rounded-lg', 'overflow-hidden');
+                accordionItem.innerHTML = `
+                    <button class="accordion-header w-full text-left p-4 bg-white hover:bg-gray-50/80 transition flex justify-between items-center" tabindex="0">
+                        <span class="font-semibold text-lg text-gray-700">${item.title}</span>
+                        <span class="accordion-icon transition-transform duration-300">
+                            <svg class="w-6 h-6 text-[#A88B79]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content bg-gray-50/50">
+                        <div class="p-6"><ul class="space-y-2 text-gray-600">${content}</ul></div>
+                    </div>
+                `;
+                accordionContainer.appendChild(accordionItem);
+            });
+
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                item.querySelector('.accordion-header').addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.accordion-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
+                });
+                item.querySelector('.accordion-header').setAttribute("tabindex", "0");
+            });
+
+            const cycleData = [
+                { title: "Estado", text: "Entre em um estado de 'vigília relaxada' (Alfa) com respiração profunda e curiosidade." },
+                { title: "Visão Global", text: "Obtenha uma visão geral do material (títulos, resumos) antes de mergulhar nos detalhes." },
+                { title: "Processamento", text: "Pare e processe ativamente a informação. Faça perguntas, conecte com o que já sabe." },
+                { title: "Ativação", text: "Torne o conhecimento ativo imediatamente. Resolva um problema ou crie um exemplo." },
+                { title: "Aplicação", text: "Use o conhecimento em um contexto ligeiramente diferente para reforçar a aprendizagem." },
+                { title: "Revisão", text: "Termine com uma revisão rápida e autoavaliação para consolidar e planejar o próximo passo." }
+            ];
+
+            const cycleContainer = document.getElementById('cycle-steps-container');
+            const radius = 130; const centerX = 150; const centerY = 150;
+            cycleData.forEach((step, i) => {
+                const angle = (i / cycleData.length) * 2 * Math.PI - (Math.PI / 2);
+                const x = centerX + radius * Math.cos(angle); const y = centerY + radius * Math.sin(angle);
+                const div = document.createElement('div');
+                div.className = 'step-circle absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-white border-2 border-[#A88B79] flex items-center justify-center text-center cursor-pointer p-2 shadow-lg';
+                div.style.left = `${x}px`; div.style.top = `${y}px`; div.style.transform = 'translate(-50%, -50%)';
+                div.textContent = step.title; div.dataset.text = step.text; div.dataset.title = `Passo ${i+1}: ${step.title}`;
+                div.tabIndex = 0;
+                div.addEventListener('keydown', e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        div.click();
+                    }
+                });
+                cycleContainer.appendChild(div);
+            });
+
+            document.querySelectorAll('.step-circle').forEach(step => {
+                step.addEventListener('click', () => {
+                    document.querySelectorAll('.step-circle').forEach(s => s.classList.remove('active'));
+                    step.classList.add('active');
+                    document.getElementById('cycle-title').textContent = step.dataset.title;
+                    document.getElementById('cycle-text').textContent = step.dataset.text;
+                });
+            });
+
+            const creativeAccordionData = [
+                { title: 'Fase 1: Definição e Imersão', content: 'Defina claramente o problema, visualize a solução ideal e mergulhe em todos os fatos e informações relevantes.' },
+                { title: 'Fase 2: Divergência e Combinação', content: 'Quebre o pensamento convencional. Busque analogias em outras áreas, combine ideias inusitadas e use todos os seus sentidos.' },
+                { title: 'Fase 3: Incubação', content: 'Desligue-se do problema. Dê tempo para que sua mente subconsciente processe e forme novas conexões. Relaxe, caminhe, durma sobre o assunto.' },
+                { title: 'Fase 4: Iluminação e Verificação', content: 'Esteja aberto para o momento "Eureca!". Após o insight, submeta a ideia a uma verificação rigorosa para testar sua validade e viabilidade.' }
+            ];
+
+            const creativeAccordionContainer = document.getElementById('creative-accordion-container');
+            creativeAccordionData.forEach((item) => {
+                const accordionItem = document.createElement('div');
+                accordionItem.classList.add('creative-accordion-item', 'border', 'border-gray-200', 'rounded-lg', 'overflow-hidden');
+                accordionItem.innerHTML = `
+                    <button class="creative-accordion-header w-full text-left p-4 bg-white hover:bg-gray-50/80 transition flex justify-between items-center" tabindex="0">
+                        <span class="font-semibold text-lg text-gray-700">${item.title}</span>
+                        <span class="accordion-icon transition-transform duration-300">
+                            <svg class="w-6 h-6 text-[#A88B79]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </button>
+                    <div class="accordion-content bg-gray-50/50"><div class="p-6 text-gray-600">${item.content}</div></div>`;
+                creativeAccordionContainer.appendChild(accordionItem);
+            });
+
+            document.querySelectorAll('.creative-accordion-item').forEach(item => {
+                item.querySelector('.creative-accordion-header').addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.creative-accordion-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
+                });
+                item.querySelector('.creative-accordion-header').setAttribute("tabindex", "0");
+            });
+
+            // IA Gemini API
+            const apiKey = ""; // Coloque sua chave Gemini API aqui para ativar IA
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            async function callGeminiAPI(prompt, maxRetries = 3) {
+                if(!apiKey) return "Funcionalidade de IA indisponível. Adicione uma chave Gemini API para ativar.";
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                let attempt = 0;
+                while (attempt < maxRetries) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const result = await response.json();
+                        if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                            return result.candidates[0].content.parts[0].text;
+                        } else {
+                            throw new Error("Resposta da API inválida ou vazia.");
+                        }
+                    } catch (error) {
+                        attempt++;
+                        if (attempt >= maxRetries) {
+                            console.error("Erro ao chamar a API Gemini após múltiplas tentativas:", error);
+                            return "Desculpe, não foi possível gerar o conteúdo no momento. Por favor, tente novamente mais tarde.";
+                        }
+                        const delay = Math.pow(2, attempt) * 1000;
+                        await new Promise(res => setTimeout(res, delay));
+                    }
+                }
+            }
+
+            function formatApiResponse(text) {
+                return text
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/^- (.*$)/gm, '<li class="ml-4">$1</li>')
+                    .replace(/(<li.*>.*<\/li>)+/g, '<ul>$&</ul>')
+                    .replace(/\n/g, '<br>');
+            }
+
+            const generatePlanBtn = document.getElementById('generate-plan-btn');
+            const planLoader = document.getElementById('plan-loader');
+            const planOutput = document.getElementById('plan-output');
+            generatePlanBtn.addEventListener('click', async () => {
+                const subject = document.getElementById('subject').value;
+                const timeframe = document.getElementById('timeframe').value;
+                const style = document.getElementById('style').value;
+                if (!subject || !timeframe) {
+                    planOutput.innerHTML = '<p class="text-red-500 text-center">Por favor, preencha o assunto e o tempo disponível.</p>';
+                    return;
+                }
+                planLoader.style.display = 'flex';
+                planOutput.innerHTML = '';
+                const prompt = `Crie um plano de estudos detalhado e estruturado para aprender "${subject}" em um período de "${timeframe}". O plano deve ser otimizado para um estilo de aprendizado "${style}". Organize o plano em fases ou semanas, com metas claras, sugestões de recursos (livros, cursos online, projetos práticos) e dicas específicas para maximizar a retenção do conhecimento. Use formatação com títulos e listas para facilitar a leitura.`;
+                const responseText = await callGeminiAPI(prompt);
+                planOutput.innerHTML = formatApiResponse(responseText);
+                planLoader.style.display = 'none';
+            });
+
+            const modal = document.getElementById('gemini-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const modalTitle = document.getElementById('modal-title');
+            const modalLoader = document.getElementById('modal-loader');
+            const modalContent = document.getElementById('modal-content');
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape" && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+            closeModalBtn.setAttribute("tabindex", "0");
+
+            document.querySelectorAll('.explain-concept-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const concept = e.target.dataset.concept;
+                    modalTitle.textContent = `Explicando: ${concept}`;
+                    modal.classList.remove('hidden');
+                    setTimeout(() => modal.classList.remove('opacity-0'), 10);
+                    modalContent.classList.add('hidden');
+                    modalLoader.style.display = 'flex';
+                    const prompt = `Explique o conceito de "${concept}" no contexto de aprendizagem acelerada e desenvolvimento pessoal. Use uma linguagem simples e clara, como se estivesse explicando para um iniciante. Forneça um exemplo prático de como aplicar este conceito no dia a dia dos estudos.`;
+                    const responseText = await callGeminiAPI(prompt);
+                    modalContent.innerHTML = formatApiResponse(responseText);
+                    modalLoader.style.display = 'none';
+                    modalContent.classList.remove('hidden');
+                });
+                button.setAttribute("tabindex", "0");
+            });
+
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
