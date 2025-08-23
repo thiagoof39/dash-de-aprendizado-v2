@@ -138,6 +138,7 @@
                     <h3 class="text-xl font-bold text-gray-700 mb-4">Timer Pomodoro</h3>
                     <div id="pomodoro-timer" class="text-6xl font-bold text-[#A88B79] my-4">25:00</div>
                     <div class="flex justify-center space-x-4"><button id="pomodoro-start" class="bg-[#A88B79] text-white px-4 py-2 rounded-lg hover:bg-[#937562] transition">Iniciar</button><button id="pomodoro-reset" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Resetar</button></div>
+                    <div id="pomodoro-message" class="text-sm text-gray-600 mt-2 h-5"></div>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 text-center">
                     <h3 class="text-xl font-bold text-gray-700 mb-4">Música para Foco</h3>
@@ -247,6 +248,90 @@
             document.querySelectorAll('.open-tool-modal').forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.modalId)));
             document.querySelectorAll('.tool-modal').forEach(modal => { modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); }); modal.querySelector('.close-modal-btn').addEventListener('click', () => closeModal(modal)); });
             
+            // Pomodoro Tool
+            let timerInterval;
+            let timeLeft = 25 * 60;
+            const timerDisplay = document.getElementById('pomodoro-timer');
+            const startButton = document.getElementById('pomodoro-start');
+            const messageDisplay = document.getElementById('pomodoro-message');
+
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            startButton.addEventListener('click', () => {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    startButton.textContent = 'Retomar';
+                } else {
+                    startButton.textContent = 'Pausar';
+                    timerInterval = setInterval(() => {
+                        timeLeft--;
+                        updateTimerDisplay();
+                        if (timeLeft <= 0) {
+                            clearInterval(timerInterval);
+                            timerInterval = null;
+                            timeLeft = 25 * 60;
+                            updateTimerDisplay();
+                            startButton.textContent = 'Iniciar';
+                            messageDisplay.textContent = 'Sessão concluída! Faça uma pausa.';
+                            setTimeout(() => { messageDisplay.textContent = ''; }, 5000);
+                        }
+                    }, 1000);
+                }
+            });
+
+            document.getElementById('pomodoro-reset').addEventListener('click', () => {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timeLeft = 25 * 60;
+                updateTimerDisplay();
+                startButton.textContent = 'Iniciar';
+                messageDisplay.textContent = '';
+            });
+            
+            // Focus Music Tool
+            const synth = new Tone.Synth().toDestination();
+            const pattern = new Tone.Pattern((time, note) => {
+                synth.triggerAttackRelease(note, "8n", time);
+            }, ["C4", "E4", "G4", "B4"], "upDown");
+            pattern.interval = "4n";
+            Tone.Transport.bpm.value = 60;
+            const musicToggle = document.getElementById('focus-music-toggle');
+            
+            musicToggle.addEventListener('click', async () => {
+                await Tone.start();
+                if (Tone.Transport.state !== 'started') {
+                    Tone.Transport.start();
+                    pattern.start(0);
+                    musicToggle.textContent = '❚❚';
+                } else {
+                    Tone.Transport.stop();
+                    synth.releaseAll();
+                    Tone.Transport.cancel(0);
+                    musicToggle.textContent = '▶';
+                }
+            });
+
+            // Learning Journal Tool
+            const journalText = document.getElementById('learning-journal');
+            const saveJournalBtn = document.getElementById('save-journal');
+            journalText.value = localStorage.getItem('learningJournal') || '';
+            saveJournalBtn.addEventListener('click', () => {
+                localStorage.setItem('learningJournal', journalText.value);
+                saveJournalBtn.textContent = 'Salvo!';
+                saveJournalBtn.classList.remove('bg-[#A88B79]', 'hover:bg-[#937562]');
+                saveJournalBtn.classList.add('bg-green-500');
+                setTimeout(() => {
+                    saveJournalBtn.textContent = 'Salvar Anotação';
+                    saveJournalBtn.classList.remove('bg-green-500');
+                    saveJournalBtn.classList.add('bg-[#A88B79]', 'hover:bg-[#937562]');
+                }, 2000);
+            });
+
             // Mindset Tool
             const mindsetQuizContainer = document.getElementById('mindset-quiz');
             const mindsetResultContainer = document.getElementById('mindset-result');
